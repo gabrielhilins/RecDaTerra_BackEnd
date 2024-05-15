@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 //import Spring Boot
 import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,8 +32,9 @@ public class Notificacao {
     //Contéudo
     @Column(length = 100, nullable = false)
     private String conteudo;
-
+    
     @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usarioDestino;
 
     @Column(length= 15, nullable = false)
