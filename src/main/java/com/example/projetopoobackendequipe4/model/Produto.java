@@ -25,7 +25,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "produtor_id", referencedColumnName = "id")
     private Produtor produtor;
 
