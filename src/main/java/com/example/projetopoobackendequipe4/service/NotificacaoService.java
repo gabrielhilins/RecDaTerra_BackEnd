@@ -19,7 +19,7 @@ public class NotificacaoService {
     }
 
     public Notificacao encontraPorConteudo(String conteudo) {
-        Optional<Notificacao> opNotificacao = notificacaoRepository.findByConteudo(conteudo);
+        Optional<Notificacao> opNotificacao = notificacaoRepository.findNotificacaoByConteudo(conteudo);
 
         if (opNotificacao.isEmpty()) {
             System.out.println("Erro: Notificação não encontrada para o conteúdo fornecido.");
