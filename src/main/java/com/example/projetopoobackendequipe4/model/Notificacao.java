@@ -11,22 +11,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 //import
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
 
 public class Notificacao {
     //Id
-    @id
-    @GeneratedValue(Strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //Contéudo
@@ -39,9 +37,5 @@ public class Notificacao {
 
     @Column(length= 15, nullable = false)
     private LocalDateTime dataHora;
-
-
-
-
 
 }
