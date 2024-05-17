@@ -1,12 +1,13 @@
 package com.example.projetopoobackendequipe4.service;
 
+import com.example.projetopoobackendequipe4.exception.TipoDeUsuarioInexistenteException;
 import com.example.projetopoobackendequipe4.exception.UsuarioNaoEncontradoException;
+import com.example.projetopoobackendequipe4.model.Cliente;
+import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.model.Usuario;
 import com.example.projetopoobackendequipe4.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,15 @@ public class UsuarioService {
     public Usuario criarUsuario(Usuario usuario) {
         // Antes de salvar, codifica a senha do usuário
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        return usuarioRepository.save(usuario);
+
+        // Verifica se o usuário é um Cliente ou Produtor
+        if (usuario instanceof Cliente) {
+            return usuarioRepository.save((Cliente) usuario);
+        } else if (usuario instanceof Produtor) {
+            return usuarioRepository.save((Produtor) usuario);
+        } else {
+            throw new TipoDeUsuarioInexistenteException("Tipo de usuário não suportado");
+        }
     }
 
     public Optional<Usuario> buscarUsuarioPorId(Long id) {

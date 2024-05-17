@@ -1,6 +1,7 @@
 package com.example.projetopoobackendequipe4.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -8,6 +9,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("PRODUTOR")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
