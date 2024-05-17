@@ -22,20 +22,20 @@ import lombok.*;
 @ToString
 
 public class Notificacao {
-    //Id
+    // Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Contéudo
+    // Contéudo
     @Column(length = 100, nullable = false)
     private String conteudo;
-    
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usarioDestino;
+    private Usuario usuarioDestino;
 
-    @Column(length= 15, nullable = false)
+    @Column(nullable = false)
     private LocalDateTime dataHora;
 
 }
