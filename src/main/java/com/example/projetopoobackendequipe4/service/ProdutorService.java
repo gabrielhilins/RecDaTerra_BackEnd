@@ -14,7 +14,10 @@ import java.util.Optional;
 @Service
 public class ProdutorService {
 
+    @Autowired
     private final ProdutorRepository produtorRepository;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     public ProdutorService(ProdutorRepository produtorRepository) {
@@ -39,10 +42,11 @@ public class ProdutorService {
         if (produtorOptional.isEmpty()) {
             throw new ProdutorNaoEncontradoException("Produtor não encontrado com o documento: " + documento);
         }
+       return produtorOptional.get();
     }
 
     public Produtor criarProdutor(Produtor produtor) {
-        return produtorRepository.save(produtor);
+        return (Produtor) usuarioService.criarUsuario(produtor);
     }
 
     public Produtor atualizarProdutor(Long id, Produtor produtor) throws ProdutorNaoEncontradoException {
