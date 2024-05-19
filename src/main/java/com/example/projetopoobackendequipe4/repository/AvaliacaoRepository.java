@@ -10,5 +10,9 @@ import com.example.projetopoobackendequipe4.model.Avaliacao;
 @Repository
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long>{
 
-    public List<Avaliacao> mediaAvaliacoes();
+    //List<Avaliacao> findByProduto(Produto produto);
+    //List<Avaliacao> findByEvento(Evento evento);
+    //List<Avaliacao> findByProdutor(Produtor produtor);
+    public double avaliacaoAlgoAvaliavel();
+    public double mediaAvaliacoes();
 }
