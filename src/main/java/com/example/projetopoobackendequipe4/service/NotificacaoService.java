@@ -22,12 +22,12 @@ public class NotificacaoService {
     }
 
     // Metodo para listar notificações
-    public List<Notificacao> listarTodasNotificacao() {
+    public List<Notificacao> listarTodasNotificacoes() {
         return notificacaoRepository.findAll();
     }
 
     // Método para encontrar uma notificação pelo conteúdo
-    public Notificacao encontraPorConteudo(String conteudo) {
+    public Notificacao buscaPorConteudo(String conteudo) {
         Optional<Notificacao> opNotificacao = notificacaoRepository.findNotificacaoByConteudo(conteudo);
         return opNotificacao.orElseThrow(() -> new NotificacaoNaoEncontrada("Notificacao não encontrada"));
     }
@@ -42,12 +42,12 @@ public class NotificacaoService {
     }
 
     // Método para encontrar uma notificação por ID
-    public Notificacao encontraPorId(Long id) {
+    public Notificacao buscaPorId(Long id) {
         Optional<Notificacao> opNotificacao = notificacaoRepository.findById(id);
         return opNotificacao.orElseThrow(() -> new NotificacaoNaoEncontrada("Notificacão não encontrada"));
     }
 
-    public Notificacao updateNotificacao(Long id, Notificacao novaNotificacao) {
+    public Notificacao atualizarNotificacao(Long id, Notificacao novaNotificacao) {
         return notificacaoRepository.findById(id).map(notificacao -> {
             notificacao.setConteudo(novaNotificacao.getConteudo());
             notificacao.setDataHora(novaNotificacao.getDataHora());
