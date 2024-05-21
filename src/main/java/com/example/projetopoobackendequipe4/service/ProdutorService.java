@@ -15,14 +15,9 @@ import java.util.Optional;
 public class ProdutorService {
 
     @Autowired
-    private final ProdutorRepository produtorRepository;
+    private ProdutorRepository produtorRepository;
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    public ProdutorService(ProdutorRepository produtorRepository) {
-        this.produtorRepository = produtorRepository;
-    }
 
     public List<Produtor> listarTodosProdutores() {
         return produtorRepository.findAll();
@@ -49,15 +44,22 @@ public class ProdutorService {
         return (Produtor) usuarioService.criarUsuario(produtor);
     }
 
-    public Produtor atualizarProdutor(Long id, Produtor produtor) throws ProdutorNaoEncontradoException {
-        Optional<Produtor> produtorOptionalExistente = produtorRepository.findById(id);
-        if (produtorOptionalExistente.isEmpty()) {
+    public Produtor atualizarProdutor(Long id, Produtor novosDetalhesDoProdutor) throws ProdutorNaoEncontradoException {
+        Optional<Produtor> produtorOptional = produtorRepository.findById(id);
+
+        if (produtorOptional.isEmpty()) {
             throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + id);
         }
 
-        Produtor produtorExistente = produtorOptionalExistente.get();
-        BeanUtils.copyProperties(produtor, produtorExistente, "id");
-        return produtorRepository.save(produtorExistente);
+        Produtor produtor = produtorOptional.get();
+        produtor.setNomeUsuario(novosDetalhesDoProdutor.getNomeUsuario());
+        produtor.setBio(novosDetalhesDoProdutor.getBio());
+        produtor.setContato(produtor.getContato());
+        produtor.setDocumento(novosDetalhesDoProdutor.getDocumento());
+        produtor.setCep(novosDetalhesDoProdutor.getCep());
+        produtor.setFotoPerfil(novosDetalhesDoProdutor.getFotoPerfil());
+
+        return produtorRepository.save(produtor);
     }
 
     public void excluirProdutor(Long id) throws ProdutorNaoEncontradoException {

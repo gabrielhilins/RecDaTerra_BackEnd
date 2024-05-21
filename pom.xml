@@ -63,6 +63,11 @@
 			<artifactId>spring-security-bom</artifactId>
 			<version>6.2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>11.3.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

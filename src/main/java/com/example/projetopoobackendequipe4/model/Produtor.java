@@ -16,6 +16,8 @@ import java.util.List;
 @Setter
 @ToString
 public class Produtor extends Usuario {
+    // public class Produtor extends Usuario implements Avaliavel {}
+
     @Column(name = "documento", length = 15, nullable = false)
     private String documento;
 
@@ -48,4 +50,21 @@ public class Produtor extends Usuario {
 
     @OneToMany(mappedBy = "produtor")
     private List<Notificacao> notificacoes;
+
+    /*
+    @Override
+    public void adicionarComentario() {
+
+    }
+
+    @Override
+    public void exibirComentario() {
+
+    }
+
+    @Override
+    public void excluircomentario() {
+
+    }
+     */
 }

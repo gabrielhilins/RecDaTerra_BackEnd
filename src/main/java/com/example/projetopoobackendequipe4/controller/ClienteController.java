@@ -17,14 +17,14 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    @PostMapping
-    public ResponseEntity<?> criarCliente(@RequestBody Cliente cliente) {
-        Cliente novoCliente = clienteService.criarCliente(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
+    @PostMapping("/criar")
+    public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
+        Cliente clienteCriado = clienteService.criarCliente(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteCriado);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarClientePorId(@PathVariable Long id) {
+    public ResponseEntity<Cliente> buscarClientePorId(@PathVariable Long id) {
         try {
             Cliente cliente = clienteService.buscarClientePorId(id);
             return ResponseEntity.ok(cliente);
@@ -33,8 +33,8 @@ public class ClienteController {
         }
     }
 
-    @GetMapping("/buscar")
-    public ResponseEntity<?> buscarClientePorEmail(@RequestParam String email) {
+    @GetMapping("/buscarPorEmail")
+    public ResponseEntity<Cliente> buscarClientePorEmail(@RequestParam String email) {
         try {
             Cliente cliente = clienteService.buscarClientePorEmail(email);
             return ResponseEntity.ok(cliente);
@@ -44,28 +44,70 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarCliente(@PathVariable Long id, @RequestBody Cliente clienteAtualizado) {
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente novosDetalhesDoCliente) {
         try {
-            Cliente cliente = clienteService.atualizarCliente(id, clienteAtualizado);
-            return ResponseEntity.ok(cliente);
+            Cliente clienteAtualizado = clienteService.atualizarCliente(id, novosDetalhesDoCliente);
+            return ResponseEntity.ok(clienteAtualizado);
         } catch (ClienteNaoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluirCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
         try {
-            clienteService.excluirCliente(id);
+            clienteService.deletarCliente(id);
             return ResponseEntity.noContent().build();
         } catch (ClienteNaoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping
+    @GetMapping("/listarTodos")
     public ResponseEntity<List<Cliente>> listarTodosClientes() {
         List<Cliente> clientes = clienteService.listarTodosClientes();
         return ResponseEntity.ok(clientes);
+    }
+
+    @PostMapping("/{clienteId}/avaliarEvento/{eventoId}")
+    public ResponseEntity<String> avaliarEvento(
+            @PathVariable Long clienteId,
+            @PathVariable Long eventoId,
+            @RequestParam Byte nota,
+            @RequestParam String comentario) {
+        try {
+            clienteService.avaliarEvento(clienteId, eventoId, nota, comentario);
+            return ResponseEntity.ok("Avaliação do evento realizada com sucesso!");
+        } catch (ClienteNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{clienteId}/avaliarProduto/{produtoId}")
+    public ResponseEntity<String> avaliarProduto(
+            @PathVariable Long clienteId,
+            @PathVariable Long produtoId,
+            @RequestParam Byte nota,
+            @RequestParam String comentario) {
+        try {
+            clienteService.avaliarProduto(clienteId, produtoId, nota, comentario);
+            return ResponseEntity.ok("Avaliação do produto realizada com sucesso!");
+        } catch (ClienteNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{clienteId}/avaliarProdutor/{produtorId}")
+    public ResponseEntity<String> avaliarProdutor(
+            @PathVariable Long clienteId,
+            @PathVariable Long produtorId,
+            @RequestParam Byte nota,
+            @RequestParam String comentario) {
+        try {
+            clienteService.avaliarProdutor(clienteId, produtorId, nota, comentario);
+            return ResponseEntity.ok("Avaliação do produtor realizada com sucesso!");
+        } catch (ClienteNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

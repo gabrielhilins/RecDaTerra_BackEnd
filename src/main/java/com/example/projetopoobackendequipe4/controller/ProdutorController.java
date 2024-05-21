@@ -17,14 +17,14 @@ public class ProdutorController {
     @Autowired
     private ProdutorService produtorService;
 
-    @GetMapping
+    @GetMapping("/listarTodos")
     public ResponseEntity<List<Produtor>> listarTodosProdutores() {
         List<Produtor> produtores = produtorService.listarTodosProdutores();
         return ResponseEntity.ok(produtores);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarProdutorPorId(@PathVariable Long id) {
+    public ResponseEntity<Produtor> buscarProdutorPorId(@PathVariable Long id) {
         try {
             Produtor produtor = produtorService.buscarProdutorPeloId(id);
             return ResponseEntity.ok(produtor);
@@ -33,8 +33,8 @@ public class ProdutorController {
         }
     }
 
-    @GetMapping("/buscardocumento")
-    public ResponseEntity<?> buscarProdutorPeloDocumento(@RequestParam String documento) {
+    @GetMapping("/buscarPorDocumento")
+    public ResponseEntity<Produtor> buscarProdutorPorDocumento(@RequestParam String documento) {
         try {
             Produtor produtor = produtorService.buscarProdutorPeloDocumento(documento);
             return ResponseEntity.ok(produtor);
@@ -43,24 +43,24 @@ public class ProdutorController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<?> criarProdutor(@RequestBody Produtor produtor) {
-        Produtor novoProdutor = produtorService.criarProdutor(produtor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoProdutor);
+    @PostMapping("/criar")
+    public ResponseEntity<Produtor> criarProdutor(@RequestBody Produtor produtor) {
+        Produtor produtorCriado = produtorService.criarProdutor(produtor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtorCriado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarProdutor(@PathVariable Long id, @RequestBody Produtor produtorAtualizado) {
+    public ResponseEntity<Produtor> atualizarProdutor(@PathVariable Long id, @RequestBody Produtor novosDetalhesDoProdutor) {
         try {
-            Produtor produtor = produtorService.atualizarProdutor(id, produtorAtualizado);
-            return ResponseEntity.ok(produtor);
+            Produtor produtorAtualizado = produtorService.atualizarProdutor(id, novosDetalhesDoProdutor);
+            return ResponseEntity.ok(produtorAtualizado);
         } catch (ProdutorNaoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluirProdutor(@PathVariable Long id) {
+    public ResponseEntity<Void> excluirProdutor(@PathVariable Long id) {
         try {
             produtorService.excluirProdutor(id);
             return ResponseEntity.noContent().build();
