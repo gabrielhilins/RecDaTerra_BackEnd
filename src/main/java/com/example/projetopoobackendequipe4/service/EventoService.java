@@ -29,9 +29,17 @@ public class EventoService {
 
     public Evento atualizarEvento(Long id, Evento detalhesDoEvento) {
         Evento evento = eventoRepository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+
+        // Atualizando os campos do evento com os novos detalhes
         evento.setNomeEvento(detalhesDoEvento.getNomeEvento());
-        evento.setLocal(detalhesDoEvento.getLocal());
+        evento.setInformacoes(detalhesDoEvento.getInformacoes());
+        evento.setDescricao(detalhesDoEvento.getDescricao());
+        evento.setSaibaMaisEvento(detalhesDoEvento.getSaibaMaisEvento());
+        evento.setContato(detalhesDoEvento.getContato());
         evento.setDataEvento(detalhesDoEvento.getDataEvento());
+        evento.setProdutores(detalhesDoEvento.getProdutores());
+        evento.setAvaliacoes(detalhesDoEvento.getAvaliacoes());
+
         return eventoRepository.save(evento);
     }
 
