@@ -4,7 +4,6 @@ import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoExcep
 import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ public class ProdutorController {
     @Autowired
     private ProdutorService produtorService;
 
-    @GetMapping("/listarTodos")
+    @GetMapping("/listar")
     public ResponseEntity<List<Produtor>> listarTodosProdutores() {
         List<Produtor> produtores = produtorService.listarTodosProdutores();
         return ResponseEntity.ok(produtores);
@@ -33,8 +32,8 @@ public class ProdutorController {
         }
     }
 
-    @GetMapping("/buscarPorDocumento")
-    public ResponseEntity<Produtor> buscarProdutorPorDocumento(@RequestParam String documento) {
+    @GetMapping("/documento/{documento}")
+    public ResponseEntity<Produtor> buscarProdutorPorDocumento(@PathVariable String documento) {
         try {
             Produtor produtor = produtorService.buscarProdutorPeloDocumento(documento);
             return ResponseEntity.ok(produtor);
@@ -45,11 +44,11 @@ public class ProdutorController {
 
     @PostMapping("/criar")
     public ResponseEntity<Produtor> criarProdutor(@RequestBody Produtor produtor) {
-        Produtor produtorCriado = produtorService.criarProdutor(produtor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtorCriado);
+        Produtor novoProdutor = produtorService.criarProdutor(produtor);
+        return ResponseEntity.ok(novoProdutor);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<Produtor> atualizarProdutor(@PathVariable Long id, @RequestBody Produtor novosDetalhesDoProdutor) {
         try {
             Produtor produtorAtualizado = produtorService.atualizarProdutor(id, novosDetalhesDoProdutor);
@@ -59,7 +58,7 @@ public class ProdutorController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     public ResponseEntity<Void> excluirProdutor(@PathVariable Long id) {
         try {
             produtorService.excluirProdutor(id);
