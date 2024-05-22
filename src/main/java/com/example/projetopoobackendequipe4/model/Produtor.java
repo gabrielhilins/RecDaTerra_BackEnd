@@ -1,9 +1,6 @@
 package com.example.projetopoobackendequipe4.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -17,6 +14,11 @@ import java.util.List;
 @ToString
 public class Produtor extends Usuario {
     // public class Produtor extends Usuario implements Avaliavel {}
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "produtor_id", nullable = false)
+    private Long id;
 
     @Column(name = "documento", length = 15, nullable = false)
     private String documento;
@@ -48,7 +50,7 @@ public class Produtor extends Usuario {
     @OneToMany(mappedBy = "produtor")
     private List<Produto> produtos;
 
-    @OneToMany(mappedBy = "produtor")
+    @OneToMany(mappedBy = "notificacoesDestino", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notificacao> notificacoes;
 
     /*
