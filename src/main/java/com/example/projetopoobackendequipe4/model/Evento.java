@@ -40,7 +40,7 @@ public class Evento {
     @ManyToMany
     private List<Produtor> produtores;
     
-    @OneToMany(mappedBy = "evento")
+    @OneToMany(mappedBy = "eventoAvaliado", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes;
     
     @Column(length = 25)

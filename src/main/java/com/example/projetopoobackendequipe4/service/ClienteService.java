@@ -4,6 +4,7 @@ import com.example.projetopoobackendequipe4.exception.ClienteNaoEncontradoExcept
 import com.example.projetopoobackendequipe4.model.*;
 import com.example.projetopoobackendequipe4.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,9 +13,6 @@ import java.util.Optional;
 
 @Service
 public class ClienteService {
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -32,10 +30,8 @@ public class ClienteService {
     private AvaliacaoRepository avaliacaoRepository;
 
     public Cliente criarCliente(Cliente cliente) {
-        // Como Cliente estende Usuario, podemos utilizar o UsuarioService para criar o cliente
-        return (Cliente) usuarioService.criarUsuario(cliente);
+        return clienteRepository.save(cliente);
     }
-
 
     public Cliente buscarClientePorId(Long id) throws ClienteNaoEncontradoException {
        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
@@ -47,8 +43,7 @@ public class ClienteService {
     }
 
     public Cliente buscarClientePorEmail(String email) throws ClienteNaoEncontradoException {
-        // Como Cliente estende Usuario, podemos utilizar o UsuarioService para buscar o cliente
-        return (Cliente) usuarioService.buscarUsuarioPorEmail(email)
+        return clienteRepository.findByEmail(email)
                 .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado com o email: " + email));
     }
 

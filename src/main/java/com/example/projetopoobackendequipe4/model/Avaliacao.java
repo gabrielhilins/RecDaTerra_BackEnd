@@ -31,19 +31,19 @@ public class Avaliacao {
     private Byte nota;
 
     @ManyToOne //Várias avaliações associadas a um único Cliente
-    @JoinColumn(name = "usuario_id", referencedColumnName  = "id")
+    @JoinColumn(name = "clienteAvaliador", referencedColumnName  = "cliente_id")
     private Cliente clienteAvaliador;
 
     @ManyToOne //Várias avaliações de Clientes associadas a um único Produto referenciado
-    @JoinColumn(name = "produto_id", referencedColumnName  = "id")
+    @JoinColumn(name = "produtoAvaliado", referencedColumnName  = "produto_id")
     private Produto produtoAvaliado;
 
     @ManyToOne ///Várias avaliações de Clientes associadas a um único Produtor referenciado
-    @JoinColumn(name = "produtor_id", referencedColumnName  = "id")
+    @JoinColumn(name = "produtorAvaliado", referencedColumnName  = "produtor_id")
     private Produtor produtorAvaliado;
 
     @ManyToOne //Várias avaliações de Clientes associadas a um único Evento referenciado
-    @JoinColumn(name = "evento_id", referencedColumnName  = "id")
+    @JoinColumn(name = "eventoAvaliado", referencedColumnName  = "evento_id")
     private Evento eventoAvaliado;
 
     @Column

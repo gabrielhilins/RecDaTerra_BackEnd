@@ -51,7 +51,8 @@ public class NotificacaoService {
         return notificacaoRepository.findById(id).map(notificacao -> {
             notificacao.setConteudo(novaNotificacao.getConteudo());
             notificacao.setDataHora(novaNotificacao.getDataHora());
-            notificacao.setUsuarioDestino(novaNotificacao.getUsuarioDestino());
+            notificacao.setClienteDestino(novaNotificacao.getClienteDestino());
+            notificacao.setProdutorDestino(novaNotificacao.getProdutorDestino());
             return notificacaoRepository.save(notificacao);
         })
                 .orElseThrow(() -> new NotificacaoNaoEncontrada("Notificação não encontrada"));

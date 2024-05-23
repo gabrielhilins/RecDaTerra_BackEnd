@@ -31,9 +31,19 @@ public class Notificacao {
     @Column(length = 100, nullable = false)
     private String conteudo;
 
+    /* 
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuarioDestino;
+    */
+    
+    @ManyToOne
+    @JoinColumn(name = "clienteDestino", referencedColumnName = "cliente_id")
+    private Cliente clienteDestino;
+
+    @ManyToOne
+    @JoinColumn(name = "produtorDestino", referencedColumnName = "produtor_id")
+    private Produtor produtorDestino;
 
     @Column(nullable = false)
     private LocalDateTime dataHora;

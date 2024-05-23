@@ -47,10 +47,10 @@ public class Produtor extends Usuario {
     @Column(name = "foto_perfil")
     private byte[] fotoPerfil;
 
-    @OneToMany(mappedBy = "produtor")
+    @OneToMany(mappedBy = "produtor", cascade = CascadeType.ALL)
     private List<Produto> produtos;
 
-    @OneToMany(mappedBy = "notificacoesDestino", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "produtorDestino", cascade = CascadeType.ALL)
     private List<Notificacao> notificacoes;
 
     /*

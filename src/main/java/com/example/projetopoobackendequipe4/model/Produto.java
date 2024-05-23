@@ -17,10 +17,11 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "produto_id", nullable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "produtor_id", referencedColumnName = "id")
+    @JoinColumn(name = "produtor", referencedColumnName = "produtor_id")
     private Produtor produtor;
 
     @Column(length = 20, nullable = false)

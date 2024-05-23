@@ -4,8 +4,8 @@ package com.example.projetopoobackendequipe4.service;
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.repository.ProdutorRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +16,7 @@ public class ProdutorService {
 
     @Autowired
     private ProdutorRepository produtorRepository;
-    @Autowired
-    private UsuarioService usuarioService;
+    private PasswordEncoder passwordEncoder;
 
     public List<Produtor> listarTodosProdutores() {
         return produtorRepository.findAll();
@@ -41,7 +40,7 @@ public class ProdutorService {
     }
 
     public Produtor criarProdutor(Produtor produtor) {
-        return (Produtor) usuarioService.criarUsuario(produtor);
+        return produtorRepository.save(produtor);
     }
 
     public Produtor atualizarProdutor(Long id, Produtor novosDetalhesDoProdutor) throws ProdutorNaoEncontradoException {

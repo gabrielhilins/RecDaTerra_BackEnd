@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @ToString
 public class Cliente extends Usuario {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id", nullable = false)
