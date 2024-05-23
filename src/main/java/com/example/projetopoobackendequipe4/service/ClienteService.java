@@ -1,10 +1,10 @@
 package com.example.projetopoobackendequipe4.service;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacaoNaoEncontradaException;
 import com.example.projetopoobackendequipe4.exception.ClienteNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.*;
 import com.example.projetopoobackendequipe4.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,15 +16,6 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
-
-    @Autowired
-    private EventoRepository eventoRepository;
-
-    @Autowired
-    private ProdutoRepository produtoRepository;
-
-    @Autowired
-    private ProdutorRepository produtorRepository;
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
@@ -76,7 +67,8 @@ public class ClienteService {
     public List<Cliente> listarTodosClientes() {
         return clienteRepository.findAll();
     }
-    public void avaliarEvento(Long clienteId, Long eventoId, Byte nota, String comentario) throws ClienteNaoEncontradoException {
+
+    /*public void avaliarEvento(Long clienteId, Long eventoId, Byte nota, String comentario) throws ClienteNaoEncontradoException {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado com o ID: " + clienteId));
 
@@ -125,7 +117,23 @@ public class ClienteService {
         avaliacao.setComentario(comentario);
 
         avaliacaoRepository.save(avaliacao);
-    }
+    }*/
 
+    public void avaliarAlgo(Long clienteId, Long algoAvaliavelId, Byte nota, String comentario) throws ClienteNaoEncontradoException, AvaliacaoNaoEncontradaException {
+        Cliente cliente = clienteRepository.findById(clienteId)
+            .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado com o ID: " + clienteId));
+
+        Avaliavel algoAvaliavel = avaliacaoRepository.findById(algoAvaliavelId)
+            .orElseThrow(() -> new AvaliacaoNaoEncontradaException("Avaliação não encontrada."));
+
+        Avaliacao a = new Avaliacao();
+        a.setNota(nota);
+        a.setClienteAvaliador(cliente);
+        a.setAlgoAvaliavel(algoAvaliavel);
+        a.setDataHora(LocalDateTime.now());
+        a.setComentario(comentario);
+
+        avaliacaoRepository.save(a);
+    }
 
 }

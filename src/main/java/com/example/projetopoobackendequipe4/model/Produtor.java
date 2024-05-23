@@ -53,9 +53,8 @@ public class Produtor extends Usuario {
     @OneToMany(mappedBy = "produtorDestino", cascade = CascadeType.ALL)
     private List<Notificacao> notificacoes;
 
-    /*
-    @Override
-    public void adicionarComentario() {
+    /*@Override
+    public void adicionarComentario(String comentario) {
 
     }
 
@@ -68,5 +67,8 @@ public class Produtor extends Usuario {
     public void excluircomentario() {
 
     }
-     */
+
+    public void colocarNota(Byte nota) {
+
+    }*/
 }

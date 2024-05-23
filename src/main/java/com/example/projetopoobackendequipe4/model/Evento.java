@@ -16,7 +16,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Evento {
+//@DiscriminatorValue("EVENTO")
+public class Evento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "evento_id", nullable = false)
@@ -45,4 +46,23 @@ public class Evento {
     
     @Column(length = 25)
     private LocalDateTime dataEvento;
+
+    /*@Override
+    public void adicionarComentario(String comentario) {
+
+    }
+
+    @Override
+    public void exibirComentario() {
+
+    }
+
+    @Override
+    public void excluircomentario() {
+
+    }
+
+    public void colocarNota(Byte nota) {
+
+    }*/
 }

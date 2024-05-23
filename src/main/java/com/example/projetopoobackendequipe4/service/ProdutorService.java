@@ -5,7 +5,6 @@ import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoExcep
 import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.repository.ProdutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +15,6 @@ public class ProdutorService {
 
     @Autowired
     private ProdutorRepository produtorRepository;
-    private PasswordEncoder passwordEncoder;
 
     public List<Produtor> listarTodosProdutores() {
         return produtorRepository.findAll();

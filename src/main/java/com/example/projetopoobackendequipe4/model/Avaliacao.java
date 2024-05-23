@@ -34,17 +34,9 @@ public class Avaliacao {
     @JoinColumn(name = "clienteAvaliador", referencedColumnName  = "cliente_id")
     private Cliente clienteAvaliador;
 
-    @ManyToOne //Várias avaliações de Clientes associadas a um único Produto referenciado
-    @JoinColumn(name = "produtoAvaliado", referencedColumnName  = "produto_id")
-    private Produto produtoAvaliado;
-
-    @ManyToOne ///Várias avaliações de Clientes associadas a um único Produtor referenciado
-    @JoinColumn(name = "produtorAvaliado", referencedColumnName  = "produtor_id")
-    private Produtor produtorAvaliado;
-
-    @ManyToOne //Várias avaliações de Clientes associadas a um único Evento referenciado
-    @JoinColumn(name = "eventoAvaliado", referencedColumnName  = "evento_id")
-    private Evento eventoAvaliado;
+    @ManyToOne //Várias avaliações de Clientes associadas a "algo avaliavel"
+    @JoinColumn(name = "algoAvaliado", referencedColumnName  = "id")
+    private Avaliavel algoAvaliavel;
 
     @Column
     private LocalDateTime dataHora;

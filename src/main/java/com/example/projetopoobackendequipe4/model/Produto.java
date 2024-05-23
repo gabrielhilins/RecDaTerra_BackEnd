@@ -13,6 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+//@DiscriminatorValue("PRODUTO")
 public class Produto {
 
     @Id
@@ -41,4 +42,23 @@ public class Produto {
 
     @Column(nullable = true)
     private byte[] fotoProduto;
+
+    /*@Override
+    public void adicionarComentario(String comentario) {
+
+    }
+
+    @Override
+    public void exibirComentario() {
+
+    }
+
+    @Override
+    public void excluircomentario() {
+
+    }
+
+    public void colocarNota(Byte nota) {
+
+    }*/
 }
