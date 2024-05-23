@@ -46,7 +46,7 @@ public class Evento implements Avaliavel {
     private List<Avaliacao> avaliacoes; //Lista de avaliações que o evento recebe de vários clientes
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<String> comentarios = new ArrayList<>(); //Lista de avaliações que o evento recebe de vários clientes
+    private List<String> comentarios = new ArrayList<>(); //Lista de cometários que o evento recebe de vários clientes
     
     @Column(length = 25)
     private LocalDateTime dataEvento;

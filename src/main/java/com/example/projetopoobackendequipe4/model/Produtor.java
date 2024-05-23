@@ -58,7 +58,7 @@ public class Produtor extends Usuario implements Avaliavel {
     private List<Avaliacao> avaliacoes; //Lista de avaliações que o produtor recebe de vários clientes
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<String> comentarios = new ArrayList<>(); //Lista de comentarios que o produtor recebe de vários clientes
+    private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produtor recebe de vários clientes
 
     @Override
     public void adicionarComentario(String comentario) {

@@ -50,7 +50,7 @@ public class Produto implements Avaliavel {
     private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<String> comentarios = new ArrayList<>(); //Lista de avaliações que o produto recebe de vários clientes
+    private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produto recebe de vários clientes
 
     @Override
     public void adicionarComentario(String comentario) {
