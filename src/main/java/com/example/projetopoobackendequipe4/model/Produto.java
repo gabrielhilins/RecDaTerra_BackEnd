@@ -7,14 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-//@DiscriminatorValue("PRODUTO")
-public class Produto {
+@DiscriminatorValue("PRODUTO")
+public class Produto implements Avaliavel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,22 +46,33 @@ public class Produto {
     @Column(nullable = true)
     private byte[] fotoProduto;
 
-    /*@Override
-    public void adicionarComentario(String comentario) {
+    @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)
+    private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<String> comentarios = new ArrayList<>(); //Lista de avaliações que o produto recebe de vários clientes
+
+    @Override
+    public void adicionarComentario(String comentario) {
+        comentarios.add(comentario);
     }
 
     @Override
     public void exibirComentario() {
-
+        for(String comentario : comentarios) {
+            System.out.print(comentario);
+        }
     }
 
     @Override
     public void excluircomentario() {
-
+        comentarios.clear();
     }
 
+    @Override
     public void colocarNota(Byte nota) {
-
-    }*/
+        Avaliacao a = new Avaliacao();
+        a.setNota(nota);
+        avaliacoes.add(a);
+    }
 }

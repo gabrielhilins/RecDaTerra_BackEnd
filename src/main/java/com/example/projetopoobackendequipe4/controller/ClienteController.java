@@ -68,7 +68,7 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/{clienteId}/avaliar-evento/{eventoId}")
+    /*@PostMapping("/{clienteId}/avaliar-evento/{eventoId}")
     public ResponseEntity<Void> avaliarEvento(
             @PathVariable Long clienteId,
             @PathVariable Long eventoId,
@@ -108,5 +108,7 @@ public class ClienteController {
         } catch (ClienteNaoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
+
+    
 }

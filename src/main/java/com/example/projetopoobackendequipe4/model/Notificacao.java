@@ -25,6 +25,7 @@ public class Notificacao {
     // Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notificacao_id", nullable = false)
     private Long id;
 
     // Contéudo

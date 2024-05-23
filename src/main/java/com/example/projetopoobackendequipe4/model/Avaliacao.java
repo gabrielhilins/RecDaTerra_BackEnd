@@ -35,7 +35,7 @@ public class Avaliacao {
     private Cliente clienteAvaliador;
 
     @ManyToOne //Várias avaliações de Clientes associadas a "algo avaliavel"
-    @JoinColumn(name = "algoAvaliado", referencedColumnName  = "id")
+    @JoinColumn(name = "algoAvaliado", referencedColumnName  = "avaliavel_id")
     private Avaliavel algoAvaliavel;
 
     @Column

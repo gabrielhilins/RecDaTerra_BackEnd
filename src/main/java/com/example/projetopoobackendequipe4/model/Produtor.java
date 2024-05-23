@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @DiscriminatorValue("PRODUTOR")
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Produtor extends Usuario {
+public class Produtor extends Usuario implements Avaliavel {
     // public class Produtor extends Usuario implements Avaliavel {}
 
     @Id
@@ -53,22 +54,33 @@ public class Produtor extends Usuario {
     @OneToMany(mappedBy = "produtorDestino", cascade = CascadeType.ALL)
     private List<Notificacao> notificacoes;
 
-    /*@Override
-    public void adicionarComentario(String comentario) {
+    @OneToMany(mappedBy = "produtorAvaliado", cascade = CascadeType.ALL)
+    private List<Avaliacao> avaliacoes; //Lista de avaliações que o produtor recebe de vários clientes
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<String> comentarios = new ArrayList<>(); //Lista de comentarios que o produtor recebe de vários clientes
+
+    @Override
+    public void adicionarComentario(String comentario) {
+        comentarios.add(comentario);
     }
 
     @Override
     public void exibirComentario() {
-
+        for(String comentario : comentarios) {
+            System.out.print(comentario);
+        }
     }
 
     @Override
     public void excluircomentario() {
-
+        comentarios.clear();
     }
 
+    @Override
     public void colocarNota(Byte nota) {
-
-    }*/
+        Avaliacao a = new Avaliacao();
+        a.setNota(nota);
+        avaliacoes.add(a);
+    }
 }

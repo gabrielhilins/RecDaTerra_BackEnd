@@ -6,8 +6,8 @@ import com.example.projetopoobackendequipe4.model.*;
 import com.example.projetopoobackendequipe4.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +18,10 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Autowired
-    private AvaliacaoRepository avaliacaoRepository;
+    private AvaliacaoService avaliacaoService;
+
+    //@Autowired
+    //private AvaliacaoRepository avaliacaoRepository;
 
     public Cliente criarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
@@ -119,21 +122,32 @@ public class ClienteService {
         avaliacaoRepository.save(avaliacao);
     }*/
 
-    public void avaliarAlgo(Long clienteId, Long algoAvaliavelId, Byte nota, String comentario) throws ClienteNaoEncontradoException, AvaliacaoNaoEncontradaException {
+    @Transactional
+    public void avaliarAlgo(Long clienteId, Long algoAvaliavelId, Byte nota, String comentario, String tipo) 
+            throws ClienteNaoEncontradoException, AvaliacaoNaoEncontradaException {
+
         Cliente cliente = clienteRepository.findById(clienteId)
-            .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado com o ID: " + clienteId));
+            .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado."));
 
-        Avaliavel algoAvaliavel = avaliacaoRepository.findById(algoAvaliavelId)
-            .orElseThrow(() -> new AvaliacaoNaoEncontradaException("Avaliação não encontrada."));
+        Class<? extends Avaliavel> clazz = getClassFromTipo(tipo);
+        if (clazz == null) {
+            throw new IllegalArgumentException("Tipo desconhecido: " + tipo);
+        }
 
-        Avaliacao a = new Avaliacao();
-        a.setNota(nota);
-        a.setClienteAvaliador(cliente);
-        a.setAlgoAvaliavel(algoAvaliavel);
-        a.setDataHora(LocalDateTime.now());
-        a.setComentario(comentario);
+        avaliacaoService.avaliarAlgo(cliente, algoAvaliavelId, nota, comentario, clazz);
+    }
 
-        avaliacaoRepository.save(a);
+    private Class<? extends Avaliavel> getClassFromTipo(String tipo) {
+        switch (tipo.toLowerCase()) {
+            case "PRODUTO":
+                return Produto.class;
+            case "PRODUTOR":
+                return Produtor.class;
+            case "EVENTO":
+                return Evento.class;
+            default:
+                return null;
+        }
     }
 
 }

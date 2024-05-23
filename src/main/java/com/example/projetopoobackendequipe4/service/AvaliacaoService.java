@@ -1,5 +1,6 @@
 package com.example.projetopoobackendequipe4.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,15 +10,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.projetopoobackendequipe4.exception.AvaliacaoNaoEncontradaException;
 import com.example.projetopoobackendequipe4.model.Avaliacao;
+import com.example.projetopoobackendequipe4.model.Avaliavel;
+import com.example.projetopoobackendequipe4.model.Cliente;
 import com.example.projetopoobackendequipe4.repository.AvaliacaoRepository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class AvaliacaoService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
-    public void criarAvaliacao(Avaliacao a) {
-        avaliacaoRepository.save(a);
+    public Avaliacao criarAvaliacao(Avaliacao a) {
+        return avaliacaoRepository.save(a);
     }
 
     public void deletarAvaliacaoPelaId(Long id) throws AvaliacaoNaoEncontradaException {
@@ -31,7 +41,7 @@ public class AvaliacaoService {
         avaliacaoRepository.delete(a);
     }
 
-    public void atualizarAvaliacao(Long id, String novoComentario) throws AvaliacaoNaoEncontradaException {
+    public Avaliacao atualizarAvaliacao(Long id, String novoComentario) throws AvaliacaoNaoEncontradaException {
         Optional<Avaliacao> opAvaliacao = avaliacaoRepository.findById(id);
 
         if(opAvaliacao.isEmpty()) { 
@@ -40,7 +50,7 @@ public class AvaliacaoService {
 
         Avaliacao a = opAvaliacao.get();
         a.setComentario(novoComentario);
-        avaliacaoRepository.save(a);
+        return avaliacaoRepository.save(a);
     }
 
     public Avaliacao pegarAvaliacaoPelaId(Long id) throws AvaliacaoNaoEncontradaException {
@@ -58,18 +68,24 @@ public class AvaliacaoService {
         return avaliacaoRepository.findAll();
     }
 
-    /*@Transactional
-    public Avaliacao avaliarAlgo(Long id, Byte nota, Class<? extends AvaliavelImpl> clazz) {
-        AvaliavelImpl avaliavel = entityManager.find(clazz, id);
-        if (avaliavel == null) {
-            throw new ResourceNotFoundException(clazz.getSimpleName() + " não encontrado para o ID " + id);
+    @Transactional //"explicar o cód..."
+    public void avaliarAlgo(Cliente cliente, Long algoAvaliavelId, Byte nota, String comentario, Class<? extends Avaliavel> clazz) 
+            throws AvaliacaoNaoEncontradaException {
+
+        Avaliavel algoAvaliavel = entityManager.find(clazz, algoAvaliavelId);
+        if (algoAvaliavel == null) {
+            throw new AvaliacaoNaoEncontradaException("Entidade a ser avaliada não encontrada.");
         }
 
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setNota(nota);
-        avaliacao.setAvaliavel(avaliavel);
-        return avaliacaoRepository.save(avaliacao);
-    }*/
+        avaliacao.setClienteAvaliador(cliente);
+        avaliacao.setAlgoAvaliavel(algoAvaliavel);
+        avaliacao.setDataHora(LocalDateTime.now());
+        avaliacao.setComentario(comentario);
+
+        avaliacaoRepository.save(avaliacao);
+    }
 
     public double mediaAvaliacoes(List<Avaliacao> avaliacoes) throws AvaliacaoNaoEncontradaException {
         if(avaliacoes.isEmpty()) {
