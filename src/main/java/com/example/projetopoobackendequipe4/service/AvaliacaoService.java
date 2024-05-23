@@ -20,8 +20,8 @@ import jakarta.persistence.PersistenceContext;
 @Service
 public class AvaliacaoService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @PersistenceContext //Anotação que serve para injetar o "EntityManager", responsável por gerenciar entidades persistidas.
+    private EntityManager entityManager; //Usado para realizar operações CRUD em entidades persistentes (objetos armazenados permanentemente no banco de dados da aplicação).
 
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
@@ -41,7 +41,7 @@ public class AvaliacaoService {
         avaliacaoRepository.delete(a);
     }
 
-    public Avaliacao atualizarAvaliacao(Long id, String novoComentario) throws AvaliacaoNaoEncontradaException {
+    public Avaliacao atualizarAvaliacao(Long id, Avaliacao novaAvaliacao) throws AvaliacaoNaoEncontradaException {
         Optional<Avaliacao> opAvaliacao = avaliacaoRepository.findById(id);
 
         if(opAvaliacao.isEmpty()) { 
@@ -49,7 +49,8 @@ public class AvaliacaoService {
         }
 
         Avaliacao a = opAvaliacao.get();
-        a.setComentario(novoComentario);
+        a.setComentario(novaAvaliacao.getComentario());
+        a.setNota(novaAvaliacao.getNota());
         return avaliacaoRepository.save(a);
     }
 
@@ -68,11 +69,11 @@ public class AvaliacaoService {
         return avaliacaoRepository.findAll();
     }
 
-    @Transactional //"explicar o cód..."
-    public void avaliarAlgo(Cliente cliente, Long algoAvaliavelId, Byte nota, String comentario, Class<? extends Avaliavel> clazz) 
+    @Transactional //Indica que todas as operações realizadas pelo método "avaliarAlgo" devem ser tratadas dentro de uma única transação. 
+    public void avaliarAlgo(Cliente cliente, Long algoAvaliavelId, Byte nota, String comentario, Class<? extends Avaliavel> clazz) //"Class<? extends Avaliavel>" Faz com que possamos diferenciar as subclasses de Avaliavel e seus métodos.
             throws AvaliacaoNaoEncontradaException {
 
-        Avaliavel algoAvaliavel = entityManager.find(clazz, algoAvaliavelId);
+        Avaliavel algoAvaliavel = entityManager.find(clazz, algoAvaliavelId); //Usamos o "EntityManager" para buscar qual a entidade (Produto, Produtor ou Evento) foi especificada na variável "clazz".
         if (algoAvaliavel == null) {
             throw new AvaliacaoNaoEncontradaException("Entidade a ser avaliada não encontrada.");
         }

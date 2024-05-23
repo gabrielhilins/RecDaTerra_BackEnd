@@ -51,21 +51,16 @@ public class AvaliacaoController {
     }
 
     @PutMapping("/atualizar/{id}") //URL do Endpoint que indica uma atualização da Avaliacao pelo "id".
-    public Avaliacao atualizarPelaId(@PathVariable Long id, @PathVariable String novoComentario) {
+    public Avaliacao atualizarPelaId(@PathVariable Long id, @RequestBody Avaliacao novaAvaliacao) {
         try {
-            return avaliacaoService.atualizarAvaliacao(id, novoComentario);
+            return avaliacaoService.atualizarAvaliacao(id, novaAvaliacao);
         } catch(AvaliacaoNaoEncontradaException a) {
             return null;
         }
     }
 
     @DeleteMapping("/excluir/{id}") //URL do Endpoint que indica a exclusão de uma avaliacao pelo "id"
-    public void deletarAvaliacaoPelaId(@PathVariable Long id) {
-        try {
-            avaliacaoService.deletarAvaliacaoPelaId(id);
-        } catch (AvaliacaoNaoEncontradaException a) {
-            //throw new AvaliacaoNaoEncontradaException("Avaliação não encontrada.");
-            a.printStackTrace();
-        }
+    public void deletarAvaliacaoPelaId(@PathVariable Long id) throws AvaliacaoNaoEncontradaException {
+        avaliacaoService.deletarAvaliacaoPelaId(id);
     }
 }

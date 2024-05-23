@@ -129,7 +129,7 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findById(clienteId)
             .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado."));
 
-        Class<? extends Avaliavel> clazz = getClassFromTipo(tipo);
+        Class<? extends Avaliavel> clazz = pegarTipoAvaliavel(tipo); //Chama-se o método para determinar o tipo de item a ser avaliado.
         if (clazz == null) {
             throw new IllegalArgumentException("Tipo desconhecido: " + tipo);
         }
@@ -137,8 +137,9 @@ public class ClienteService {
         avaliacaoService.avaliarAlgo(cliente, algoAvaliavelId, nota, comentario, clazz);
     }
 
-    private Class<? extends Avaliavel> getClassFromTipo(String tipo) {
-        switch (tipo.toLowerCase()) {
+    //Método responsável por retornar qual o tipo da entidade Cliente está avaliando.
+    private Class<? extends Avaliavel> pegarTipoAvaliavel(String tipo) {
+        switch (tipo.toUpperCase()) { //Converte o tipo maiúsculas para corresponder ao "DiscriminatorValue" das entidades.
             case "PRODUTO":
                 return Produto.class;
             case "PRODUTOR":
