@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @ToString
-public class Produtor extends Usuario implements Avaliavel {
+public class Produtor extends Usuario {
     // public class Produtor extends Usuario implements Avaliavel {}
 
     @Id
@@ -57,10 +57,10 @@ public class Produtor extends Usuario implements Avaliavel {
     @OneToMany(mappedBy = "produtorAvaliado", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes; //Lista de avaliações que o produtor recebe de vários clientes
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produtor recebe de vários clientes
+    //@OneToMany(cascade = CascadeType.ALL)
+    //private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produtor recebe de vários clientes
 
-    @Override
+    /*@Override
     public void adicionarComentario(String comentario) {
         comentarios.add(comentario);
     }
@@ -73,7 +73,7 @@ public class Produtor extends Usuario implements Avaliavel {
     }
 
     @Override
-    public void excluircomentario() {
+    public void excluirComentario() {
         comentarios.clear();
     }
 
@@ -82,5 +82,5 @@ public class Produtor extends Usuario implements Avaliavel {
         Avaliacao a = new Avaliacao();
         a.setNota(nota);
         avaliacoes.add(a);
-    }
+    }*/
 }

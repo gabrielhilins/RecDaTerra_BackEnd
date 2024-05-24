@@ -17,7 +17,7 @@ import java.util.ArrayList;
 @Setter
 @ToString
 @DiscriminatorValue("PRODUTO")
-public class Produto implements Avaliavel {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,10 +49,10 @@ public class Produto implements Avaliavel {
     @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produto recebe de vários clientes
+    //@OneToMany(cascade = CascadeType.ALL)
+    //private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produto recebe de vários clientes
 
-    @Override
+    /*@Override
     public void adicionarComentario(String comentario) {
         comentarios.add(comentario);
     }
@@ -65,7 +65,7 @@ public class Produto implements Avaliavel {
     }
 
     @Override
-    public void excluircomentario() {
+    public void excluirComentario() {
         comentarios.clear();
     }
 
@@ -74,5 +74,5 @@ public class Produto implements Avaliavel {
         Avaliacao a = new Avaliacao();
         a.setNota(nota);
         avaliacoes.add(a);
-    }
+    }*/
 }
