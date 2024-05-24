@@ -30,7 +30,7 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    public void atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoException {
+public Produto atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoException {
         Optional<Produto> opProduto = produtoRepository.findById(Id);
 
         if(opProduto.isEmpty()) {
@@ -45,7 +45,7 @@ public class ProdutoService {
         produto.setEstoque(p.getEstoque());
         produto.setFotoProduto(p.getFotoProduto());
 
-        produtoRepository.save(produto);
+        return produtoRepository.save(produto);
     }
 
 
