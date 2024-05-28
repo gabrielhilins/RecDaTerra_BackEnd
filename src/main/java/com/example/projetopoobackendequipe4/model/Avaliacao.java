@@ -30,17 +30,21 @@ public class Avaliacao {
     @Column(length = 1, nullable = false)
     private Byte nota;
 
+    @Column(length = 400, nullable = true)
+    private String comentario;
+
     @ManyToOne //Várias avaliações associadas a um único Cliente
     @JoinColumn(name = "clienteAvaliador", referencedColumnName  = "cliente_id")
     private Cliente clienteAvaliador;
 
     @ManyToOne //Várias avaliações de Clientes associadas a "algo avaliavel"
-    @JoinColumn(name = "algoAvaliado", referencedColumnName  = "avaliavel_id")
-    private Avaliavel algoAvaliavel;
+    @JoinColumn(name = "idAvaliavel", referencedColumnName  = "avaliavel_id")
+    private Long avaliavelId;
+
+    @ManyToOne
+    @JoinColumn(name = "tipoAvaliado", referencedColumnName  = "tipo")
+    private String tipoAvaliavel;
 
     @Column
     private LocalDateTime dataHora;
-
-    @Column(length = 400, nullable = true)
-    private String comentario;
 }

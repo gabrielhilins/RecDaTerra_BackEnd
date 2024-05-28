@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @DiscriminatorValue("EVENTO")
-public class Evento {
+public class Evento implements Avaliavel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "evento_id", nullable = false)
@@ -43,36 +43,20 @@ public class Evento {
     private List<Produtor> produtores;
     
     @OneToMany(mappedBy = "eventoAvaliado", cascade = CascadeType.ALL)
-    private List<Avaliacao> avaliacoes; //Lista de avaliações que o evento recebe de vários clientes
+    private List<Avaliacao> avaliacoes; //Lista de avaliações que o Evento recebe de vários Clientes
 
-
-    /*@OneToMany(cascade = CascadeType.ALL)
-    private List<String> comentarios = new ArrayList<>(); Lista de cometários que o evento recebe de vários clientes*/
+    private List<String> comentarios = new ArrayList<>(); //Lista para armazenar os comentários que o Evento recebe de vários Clientes
     
     @Column(length = 25)
     private LocalDateTime dataEvento;
-
-    /*@Override
-    public void adicionarComentario(String comentario) {
-        comentarios.add(comentario);
-    }
-
+    
+    //Referênciar/Pegar o "id" do Evento ao "id" de Avaliavel, e explicitar/criar o "tipo" da entidade avaliada
     @Override
-    public void exibirComentario() {
-        for(String comentario : comentarios) {
-            System.out.print(comentario);
-        }
+    public Long getId() {
+        return id;
     }
-
     @Override
-    public void excluirComentario() {
-        comentarios.clear();
+    public String getTipo() {
+        return "Evento";
     }
-
-    @Override
-    public void colocarNota(Byte nota) {
-        Avaliacao a = new Avaliacao();
-        a.setNota(nota);
-        avaliacoes.add(a);
-    }*/
 }

@@ -122,7 +122,7 @@ public class ClienteService {
         avaliacaoRepository.save(avaliacao);
     }*/
 
-    @Transactional
+    /*@Transactional
     public void avaliarAlgo(Long clienteId, Long algoAvaliavelId, Byte nota, String comentario, String tipo) 
             throws ClienteNaoEncontradoException, AvaliacaoNaoEncontradaException {
 
@@ -149,6 +149,18 @@ public class ClienteService {
             default:
                 return null;
         }
+    }*/
+
+    public void efetuarAvaliacao(Long clienteId, Long avaliavelId, Byte nota, String comentario, String tipo) throws ClienteNaoEncontradoException {
+        Optional<Cliente> clienteOp = clienteRepository.findById(clienteId);
+
+        if(clienteOp.isEmpty()) {
+            throw new ClienteNaoEncontradoException("Cliente não encontrado.");
+        }
+
+        Cliente cliente = clienteOp.get();
+
+        Avaliacao a = avaliacaoService.avaliarAlgo(nota, comentario, cliente, avaliavelId, tipo);
     }
 
 }
