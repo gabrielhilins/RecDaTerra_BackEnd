@@ -37,12 +37,11 @@ public class Avaliacao {
     @JoinColumn(name = "clienteAvaliador", referencedColumnName  = "cliente_id")
     private Cliente clienteAvaliador;
 
-    @ManyToOne //Várias avaliações de Clientes associadas a "algo avaliavel"
-    @JoinColumn(name = "idAvaliavel", referencedColumnName  = "avaliavel_id")
+    @Column(name = "idAvaliavel")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long avaliavelId;
 
-    @ManyToOne
-    @JoinColumn(name = "tipoAvaliado", referencedColumnName  = "tipo")
+    @Column(name = "tipoAvaliado")
     private String tipoAvaliavel;
 
     @Column

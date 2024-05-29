@@ -53,7 +53,7 @@ public class Produto implements Avaliavel {
 
     //Referênciar/Pegar o "id" do Produto ao "id" de Avaliavel, e explicitar/criar o "tipo" da entidade avaliada
     @Override
-    public Long getId() {
+    public Long getIdAvaliavel() {
         return id;
     }
     @Override

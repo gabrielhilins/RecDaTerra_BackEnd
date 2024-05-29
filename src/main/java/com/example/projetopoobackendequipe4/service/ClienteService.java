@@ -6,8 +6,8 @@ import com.example.projetopoobackendequipe4.model.*;
 import com.example.projetopoobackendequipe4.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +20,8 @@ public class ClienteService {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-    //@Autowired
-    //private AvaliacaoRepository avaliacaoRepository;
+    @Autowired
+    private AvaliacaoRepository avaliacaoRepository;
 
     public Cliente criarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
@@ -151,7 +151,7 @@ public class ClienteService {
         }
     }*/
 
-    public void efetuarAvaliacao(Long clienteId, Long avaliavelId, Byte nota, String comentario, String tipo) throws ClienteNaoEncontradoException {
+    /*public void efetuarAvaliacao(Long clienteId, Long avaliavelId, Byte nota, String comentario, String tipo) throws ClienteNaoEncontradoException, AvaliacaoNaoEncontradaException {
         Optional<Cliente> clienteOp = clienteRepository.findById(clienteId);
 
         if(clienteOp.isEmpty()) {
@@ -160,7 +160,28 @@ public class ClienteService {
 
         Cliente cliente = clienteOp.get();
 
-        Avaliacao a = avaliacaoService.avaliarAlgo(nota, comentario, cliente, avaliavelId, tipo);
+        if()
+
+        Avaliacao a = avaliacaoService.avaliarAlgo(cliente, avaliavelId, nota, comentario, tipo);
+    }*/
+
+    public Avaliacao avaliarAlgo(Cliente cliente, Long avaliavelId, Byte nota, String comentario, String tipo) throws AvaliacaoNaoEncontradaException {
+        if(avaliavelId == null) {
+            throw new AvaliacaoNaoEncontradaException("Essa avaliação não existe.");
+        }
+
+        avaliacaoService.diferenciarAlgoAvaliavel(avaliavelId, tipo);
+
+        Avaliacao a = new Avaliacao();
+
+        a.setNota(nota);
+        a.setComentario(comentario);
+        a.setClienteAvaliador(cliente);
+        a.setAvaliavelId(avaliavelId);
+        a.setTipoAvaliavel(tipo);
+        a.setDataHora(LocalDateTime.now());
+
+        return avaliacaoRepository.save(a);
     }
 
 }

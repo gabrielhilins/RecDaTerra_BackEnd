@@ -42,7 +42,7 @@ public class Evento implements Avaliavel {
     @ManyToMany
     private List<Produtor> produtores;
     
-    @OneToMany(mappedBy = "eventoAvaliado", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "algoAvaliavel", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes; //Lista de avaliações que o Evento recebe de vários Clientes
 
     private List<String> comentarios = new ArrayList<>(); //Lista para armazenar os comentários que o Evento recebe de vários Clientes
@@ -52,7 +52,7 @@ public class Evento implements Avaliavel {
     
     //Referênciar/Pegar o "id" do Evento ao "id" de Avaliavel, e explicitar/criar o "tipo" da entidade avaliada
     @Override
-    public Long getId() {
+    public Long getIdAvaliavel() {
         return id;
     }
     @Override
