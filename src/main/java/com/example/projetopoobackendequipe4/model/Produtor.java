@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
+@Table(name = "Produtor")
 @DiscriminatorValue("PRODUTOR")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,8 +55,8 @@ public class Produtor extends Usuario implements Avaliavel {
     @OneToMany(mappedBy = "produtorDestino", cascade = CascadeType.ALL)
     private List<Notificacao> notificacoes;
 
-    @OneToMany(mappedBy = "produtorAvaliado", cascade = CascadeType.ALL)
-    private List<Avaliacao> avaliacoes; //Lista de avaliações que o produtor recebe de vários clientes
+    // @OneToMany(mappedBy = "produtorAvaliado", cascade = CascadeType.ALL)
+    // private List<Avaliacao> avaliacoes; //Lista de avaliações que o produtor recebe de vários clientes
 
     private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produtor recebe de vários clientes
 

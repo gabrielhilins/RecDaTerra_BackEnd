@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "Evento")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -42,8 +43,11 @@ public class Evento implements Avaliavel {
     @ManyToMany
     private List<Produtor> produtores;
     
-    @OneToMany(mappedBy = "algoAvaliavel", cascade = CascadeType.ALL)
-    private List<Avaliacao> avaliacoes; //Lista de avaliações que o Evento recebe de vários Clientes
+    /*
+     * 
+     @OneToMany(mappedBy = "algoAvaliavel", cascade = CascadeType.ALL)
+     private List<Avaliacao> avaliacoes; //Lista de avaliações que o Evento recebe de vários Clientes
+     */
 
     private List<String> comentarios = new ArrayList<>(); //Lista para armazenar os comentários que o Evento recebe de vários Clientes
     

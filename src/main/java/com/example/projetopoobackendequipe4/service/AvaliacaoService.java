@@ -104,4 +104,7 @@ public class AvaliacaoService {
 
         return media;
     }
+    public List<Avaliacao> listarAvaliacoesPorAvaliavel(Long avaliavelId, String tipoAvaliavel) {
+        return avaliacaoRepository.findByAvaliavelIdAndTipoAvaliavel(avaliavelId, tipoAvaliavel);
+    }
 }

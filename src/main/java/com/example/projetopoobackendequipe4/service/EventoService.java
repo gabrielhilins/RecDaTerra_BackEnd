@@ -1,5 +1,6 @@
 package com.example.projetopoobackendequipe4.service;
 
+import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Evento;
 import com.example.projetopoobackendequipe4.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class EventoService {
 
     @Autowired
     private EventoRepository eventoRepository;
+
+    @Autowired
+    AvaliacaoService avaliacaoService;
 
     public Evento criarEvento(Evento evento) {
         return eventoRepository.save(evento);
@@ -38,12 +42,14 @@ public class EventoService {
         evento.setContato(detalhesDoEvento.getContato());
         evento.setDataEvento(detalhesDoEvento.getDataEvento());
         evento.setProdutores(detalhesDoEvento.getProdutores());
-        evento.setAvaliacoes(detalhesDoEvento.getAvaliacoes());
 
         return eventoRepository.save(evento);
     }
 
     public void deletarEvento(Long id) {
         eventoRepository.deleteById(id);
+    }
+    public List<Avaliacao> listarAvaliacoesDeProdutor(Long eventoId) {
+        return avaliacaoService.listarAvaliacoesPorAvaliavel(eventoId, "Evento");
     }
 }

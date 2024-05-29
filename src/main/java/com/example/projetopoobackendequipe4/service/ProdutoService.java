@@ -6,6 +6,8 @@ import java.util.List;
 import com.example.projetopoobackendequipe4.exception.ProdutoNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produto;
 import com.example.projetopoobackendequipe4.repository.ProdutoRepository;
 
@@ -15,6 +17,9 @@ import com.example.projetopoobackendequipe4.repository.ProdutoRepository;
 public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
+    
+    @Autowired
+    private AvaliacaoService avaliacaoService;
 
     public void criarProduto(Produto p) {
         produtoRepository.save(p);
@@ -64,6 +69,10 @@ public Produto atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoE
         Produto produto = opProduto.get();
         return(produto);
     } 
+
+    public List<Avaliacao> listarAvaliacoesDeProdutor(Long produtoId) {
+        return avaliacaoService.listarAvaliacoesPorAvaliavel(produtoId, "Produto");
+    }
 
 }
 

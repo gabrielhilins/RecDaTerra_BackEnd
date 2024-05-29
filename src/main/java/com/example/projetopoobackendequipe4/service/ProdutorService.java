@@ -2,6 +2,7 @@
 package com.example.projetopoobackendequipe4.service;
 
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
+import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.repository.ProdutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class ProdutorService {
 
     @Autowired
     private ProdutorRepository produtorRepository;
+
+    @Autowired
+    private AvaliacaoService avaliacaoService;
 
     public List<Produtor> listarTodosProdutores() {
         return produtorRepository.findAll();
@@ -64,5 +68,8 @@ public class ProdutorService {
             throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + id);
         }
         produtorRepository.deleteById(id);
+    }
+    public List<Avaliacao> listarAvaliacoesDeProdutor(Long produtorId) {
+        return avaliacaoService.listarAvaliacoesPorAvaliavel(produtorId, "Produtor");
     }
 }

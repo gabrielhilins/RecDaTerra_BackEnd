@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
+@Table(name = "Produto")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -46,8 +47,8 @@ public class Produto implements Avaliavel {
     @Column(nullable = true)
     private byte[] fotoProduto;
 
-    @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)
-    private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
+    // @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)
+    // private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
 
     private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produto recebe de vários clientes
 
