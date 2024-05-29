@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "Produtor")
 @DiscriminatorValue("PRODUTOR")
 @AllArgsConstructor
 @NoArgsConstructor
