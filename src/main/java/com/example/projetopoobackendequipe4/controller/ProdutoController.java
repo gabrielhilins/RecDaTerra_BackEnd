@@ -1,6 +1,8 @@
 package com.example.projetopoobackendequipe4.controller;
 
 import com.example.projetopoobackendequipe4.exception.ProdutoNaoEncontradoException;
+import com.example.projetopoobackendequipe4.exception.AvaliacoesProdutoNaoEncotradasException;
+import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produto;
 import com.example.projetopoobackendequipe4.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,15 @@ public class ProdutoController {
             Produto produto = produtoService.encontrarProdutopelaId(id);
             return ResponseEntity.ok(produto);
         } catch (ProdutoNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/{id}/avaliacoes")
+    public ResponseEntity<List<Avaliacao>> listarAvaliacoesDeProduto(@PathVariable Long produtoId) {
+        try {
+            List<Avaliacao> avaliacoes = produtoService.listarAvaliacoesDeProduto(produtoId);
+            return ResponseEntity.ok(avaliacoes);
+        } catch (ProdutoNaoEncontradoException | AvaliacoesProdutoNaoEncotradasException e) {
             return ResponseEntity.notFound().build();
         }
     }
