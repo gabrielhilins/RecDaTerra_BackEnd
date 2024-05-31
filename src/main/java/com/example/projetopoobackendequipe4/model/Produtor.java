@@ -68,4 +68,5 @@ public class Produtor extends Usuario implements Avaliavel {
     public String getTipo() {
         return "Produtor";
     }
+
 }

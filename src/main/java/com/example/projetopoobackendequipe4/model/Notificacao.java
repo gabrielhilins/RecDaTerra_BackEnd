@@ -3,13 +3,7 @@ package com.example.projetopoobackendequipe4.model;
 import java.time.LocalDateTime;
 
 //import Spring Boot
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 //import
 
@@ -24,7 +18,7 @@ public class Notificacao {
     // Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "notificacao_id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     // Contéudo
@@ -47,5 +41,10 @@ public class Notificacao {
 
     @Column(nullable = false)
     private LocalDateTime dataHora;
+
+    @PrePersist
+    protected void onCreate() {
+        dataHora = LocalDateTime.now();
+    }
 
 }

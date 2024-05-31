@@ -22,4 +22,9 @@ public abstract class Usuario {
     private String senha;
     @Column(name = "dataRegistro" , length = 25, nullable = false)
     private LocalDateTime dataRegistro;
+
+    @PrePersist
+    protected void onCreate() {
+        dataRegistro = LocalDateTime.now();
+    }
 }

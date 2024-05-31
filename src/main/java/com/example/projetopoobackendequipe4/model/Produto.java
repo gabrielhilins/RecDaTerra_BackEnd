@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -46,6 +47,9 @@ public class Produto implements Avaliavel {
     @Column(nullable = true)
     private byte[] fotoProduto;
 
+    @Column(nullable = false)
+    private LocalDateTime dataRegistroProduto;
+
     // @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)
     // private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
 
@@ -59,5 +63,10 @@ public class Produto implements Avaliavel {
     @Override
     public String getTipo() {
         return "Produto";
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        dataRegistroProduto = LocalDateTime.now();
     }
 }

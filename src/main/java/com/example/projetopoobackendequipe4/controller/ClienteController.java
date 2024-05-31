@@ -1,6 +1,8 @@
 package com.example.projetopoobackendequipe4.controller;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacaoNaoEncontradaException;
 import com.example.projetopoobackendequipe4.exception.ClienteNaoEncontradoException;
+import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Cliente;
 import com.example.projetopoobackendequipe4.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,47 +70,20 @@ public class ClienteController {
         }
     }
 
-    /*@PostMapping("/{clienteId}/avaliar-evento/{eventoId}")
-    public ResponseEntity<Void> avaliarEvento(
+    @PostMapping("/{clienteId}/avaliar-algo")
+    public ResponseEntity<Avaliacao> avaliarAlgo(
             @PathVariable Long clienteId,
-            @PathVariable Long eventoId,
+            @RequestParam Long avaliavelId,
             @RequestParam Byte nota,
-            @RequestParam String comentario) {
+            @RequestParam String comentario,
+            @RequestParam String tipo) {
         try {
-            clienteService.avaliarEvento(clienteId, eventoId, nota, comentario);
-            return ResponseEntity.ok().build();
-        } catch (ClienteNaoEncontradoException e) {
+            Cliente cliente = clienteService.buscarClientePorId(clienteId);
+            Avaliacao avaliacao = clienteService.avaliarAlgo(cliente, avaliavelId, nota, comentario, tipo);
+            return ResponseEntity.ok(avaliacao);
+        } catch (ClienteNaoEncontradoException | AvaliacaoNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PostMapping("/{clienteId}/avaliar-produto/{produtoId}")
-    public ResponseEntity<Void> avaliarProduto(
-            @PathVariable Long clienteId,
-            @PathVariable Long produtoId,
-            @RequestParam Byte nota,
-            @RequestParam String comentario) {
-        try {
-            clienteService.avaliarProduto(clienteId, produtoId, nota, comentario);
-            return ResponseEntity.ok().build();
-        } catch (ClienteNaoEncontradoException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PostMapping("/{clienteId}/avaliar-produtor/{produtorId}")
-    public ResponseEntity<Void> avaliarProdutor(
-            @PathVariable Long clienteId,
-            @PathVariable Long produtorId,
-            @RequestParam Byte nota,
-            @RequestParam String comentario) {
-        try {
-            clienteService.avaliarProdutor(clienteId, produtorId, nota, comentario);
-            return ResponseEntity.ok().build();
-        } catch (ClienteNaoEncontradoException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }*/
-
-    
 }

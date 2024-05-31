@@ -1,6 +1,8 @@
 package com.example.projetopoobackendequipe4.controller;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacoesProdutorNaoEncontradasException;
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
+import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,15 @@ public class ProdutorController {
             produtorService.excluirProdutor(id);
             return ResponseEntity.noContent().build();
         } catch (ProdutorNaoEncontradoException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/{id}/avaliacoes")
+    public ResponseEntity<List<Avaliacao>> listarAvaliacoesDeProdutor(@PathVariable Long produtorId) {
+        try {
+            List<Avaliacao> avaliacoes = produtorService.listarAvaliacoesDeProdutor(produtorId);
+            return ResponseEntity.ok(avaliacoes);
+        } catch (ProdutorNaoEncontradoException | AvaliacoesProdutorNaoEncontradasException e) {
             return ResponseEntity.notFound().build();
         }
     }

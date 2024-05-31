@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.List;
 
 import com.example.projetopoobackendequipe4.exception.ProdutoNaoEncontradoException;
+import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
+import com.example.projetopoobackendequipe4.model.Produtor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +72,11 @@ public Produto atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoE
         return(produto);
     } 
 
-    public List<Avaliacao> listarAvaliacoesDeProdutor(Long produtoId) {
+    public List<Avaliacao> listarAvaliacoesDeProduto(Long produtoId) {
+        Produto produto = encontrarProdutopelaId(produtoId);
+        if (produto == null) {
+            throw new ProdutorNaoEncontradoException("Produto não encontrado com o ID: " + produtoId);
+        }
         return avaliacaoService.listarAvaliacoesPorAvaliavel(produtoId, "Produto");
     }
 

@@ -1,7 +1,11 @@
 package com.example.projetopoobackendequipe4.service;
 
+import com.example.projetopoobackendequipe4.exception.ProdutoNaoEncontradoException;
+import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Evento;
+import com.example.projetopoobackendequipe4.model.Produto;
+import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +31,16 @@ public class EventoService {
         return eventoRepository.findAll();
     }
 
-    public Optional<Evento> obterEventoPorId(Long id) {
-        return eventoRepository.findById(id);
+    public Evento obterEventoPorId(Long id) {
+        Optional<Evento> opEvento = eventoRepository.findById(id);
+
+        if(opEvento.isEmpty()) {
+            throw new ProdutoNaoEncontradoException("Produto Não Encontrado");
+
+        }
+
+        Evento evento = opEvento.get();
+        return(evento);
     }
 
     public Evento atualizarEvento(Long id, Evento detalhesDoEvento) {
@@ -49,7 +61,11 @@ public class EventoService {
     public void deletarEvento(Long id) {
         eventoRepository.deleteById(id);
     }
-    public List<Avaliacao> listarAvaliacoesDeProdutor(Long eventoId) {
+    public List<Avaliacao> listarAvaliacoesDeEvento(Long eventoId) {
+        Evento evento = obterEventoPorId(eventoId);
+        if (evento == null) {
+            throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + eventoId);
+        }
         return avaliacaoService.listarAvaliacoesPorAvaliavel(eventoId, "Evento");
     }
 }

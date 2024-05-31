@@ -62,4 +62,9 @@ public class Evento implements Avaliavel {
     public String getTipo() {
         return "Evento";
     }
+
+    @PrePersist
+    protected void onCreate() {
+        dataEvento = LocalDateTime.now();
+    }
 }

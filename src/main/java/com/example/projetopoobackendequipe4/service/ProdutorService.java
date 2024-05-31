@@ -69,7 +69,11 @@ public class ProdutorService {
         }
         produtorRepository.deleteById(id);
     }
-    public List<Avaliacao> listarAvaliacoesDeProdutor(Long produtorId) {
+    public List<Avaliacao> listarAvaliacoesDeProdutor(Long produtorId) throws ProdutorNaoEncontradoException{
+        Produtor produtor = buscarProdutorPeloId(produtorId);
+        if (produtor == null) {
+            throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + produtorId);
+        }
         return avaliacaoService.listarAvaliacoesPorAvaliavel(produtorId, "Produtor");
     }
 }
