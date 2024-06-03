@@ -53,7 +53,7 @@ public class Produto implements Avaliavel {
     // @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)
     // private List<Avaliacao> avaliacoes; //Lista de avaliações que o produto recebe de vários clientes
 
-    private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produto recebe de vários clientes
+    // private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produto recebe de vários clientes
 
     //Referênciar/Pegar o "id" do Produto ao "id" de Avaliavel, e explicitar/criar o "tipo" da entidade avaliada
     @Override

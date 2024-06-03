@@ -48,7 +48,7 @@ public class Evento implements Avaliavel {
      private List<Avaliacao> avaliacoes; //Lista de avaliações que o Evento recebe de vários Clientes
      */
 
-    private List<String> comentarios = new ArrayList<>(); //Lista para armazenar os comentários que o Evento recebe de vários Clientes
+    // private List<String> comentarios = new ArrayList<>(); //Lista para armazenar os comentários que o Evento recebe de vários Clientes
     
     @Column(length = 25)
     private LocalDateTime dataEvento;

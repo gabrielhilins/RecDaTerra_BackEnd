@@ -1,5 +1,6 @@
 package com.example.projetopoobackendequipe4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,8 +27,10 @@ public class Cliente extends Usuario {
     private byte[] fotoPerfil;
 
     @OneToMany(mappedBy = "clienteAvaliador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Avaliacao> avaliacoes;
 
     @OneToMany(mappedBy = "clienteDestino", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Notificacao> notificacoes;
 }

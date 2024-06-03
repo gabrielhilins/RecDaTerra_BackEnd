@@ -1,5 +1,6 @@
 package com.example.projetopoobackendequipe4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,12 +15,14 @@ import java.util.ArrayList;
 @Setter
 @ToString
 public class Produtor extends Usuario implements Avaliavel {
-    // public class Produtor extends Usuario implements Avaliavel {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "produtor_id", nullable = false)
     private Long id;
+
+    @Column(name = "tipoDeDocumento", length = 4, nullable = false)
+    private String tipoDeDocumento;
 
     @Column(name = "documento", length = 15, nullable = false)
     private String documento;
@@ -52,12 +55,13 @@ public class Produtor extends Usuario implements Avaliavel {
     private List<Produto> produtos;
 
     @OneToMany(mappedBy = "produtorDestino", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Notificacao> notificacoes;
 
     // @OneToMany(mappedBy = "produtorAvaliado", cascade = CascadeType.ALL)
     // private List<Avaliacao> avaliacoes; //Lista de avaliações que o produtor recebe de vários clientes
 
-    private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produtor recebe de vários clientes
+    // private List<String> comentarios = new ArrayList<>(); //Lista de comentários que o produtor recebe de vários clientes
 
     //Referênciar/Pegar o "id" do Produtor ao "id" de Avaliavel, e explicitar/criar o "tipo" da entidade avaliada
     @Override
