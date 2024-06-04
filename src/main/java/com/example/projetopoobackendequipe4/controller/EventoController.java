@@ -6,6 +6,7 @@ import com.example.projetopoobackendequipe4.model.Evento;
 import com.example.projetopoobackendequipe4.service.AvaliacaoService;
 import com.example.projetopoobackendequipe4.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,6 +73,16 @@ public class EventoController {
             return ResponseEntity.ok(avaliacoes);
         } catch (ProdutoNaoEncontradoException | AvaliacoesEventoNaoEncontradasException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{eventoId}/media-avaliacoes-evento")
+    public ResponseEntity<Double> mediaAvaliacoesDeEvento(@PathVariable Long eventoId) {
+        try {
+            double media = eventoService.mediaAvaliacoesDeEvento(eventoId);
+            return new ResponseEntity<>(media, HttpStatus.OK);
+        } catch (AvaliacoesEventoNaoEncontradasException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

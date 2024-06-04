@@ -3,6 +3,8 @@ package com.example.projetopoobackendequipe4.service;
 import java.util.Optional;
 import java.util.List;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacoesProdutoNaoEncotradasException;
+import com.example.projetopoobackendequipe4.exception.AvaliacoesProdutorNaoEncontradasException;
 import com.example.projetopoobackendequipe4.exception.ProdutoNaoEncontradoException;
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.Produtor;
@@ -78,6 +80,24 @@ public Produto atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoE
             throw new ProdutorNaoEncontradoException("Produto não encontrado com o ID: " + produtoId);
         }
         return avaliacaoService.listarAvaliacoesPorAvaliavel(produtoId, "Produto");
+    }
+
+    public double mediaAvaliacoesDeProduto(Long produtoId) throws AvaliacoesProdutoNaoEncotradasException {
+        List<Avaliacao> avaliacoes = listarAvaliacoesDeProduto(produtoId);
+
+        if(avaliacoes.isEmpty()) {
+            throw new AvaliacoesProdutoNaoEncotradasException("Ainda não há avaliações para esse Produto.");
+        }
+
+        int totalNotas = 0;
+        int totalAvaliacoes = 0;
+
+        for(int i = 0; i < avaliacoes.size(); i++) {
+            totalNotas += avaliacoes.get(i).getNota();
+            totalAvaliacoes++;
+        }
+
+        return (double) totalNotas / totalAvaliacoes;
     }
 
 }

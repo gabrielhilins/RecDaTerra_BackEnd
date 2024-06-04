@@ -31,7 +31,7 @@ public class Avaliacao {
     private int nota;
 
     @Column(length = 400, nullable = true)
-    private String comentario;
+    private String descricao;
 
     @ManyToOne // Várias avaliações associadas a um único Cliente
     @JoinColumn(name = "clienteAvaliador", referencedColumnName = "cliente_id")

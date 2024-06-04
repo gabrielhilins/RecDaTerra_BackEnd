@@ -64,12 +64,4 @@ public class AvaliacaoController {
         avaliacaoService.deletarAvaliacaoPelaId(id);
     }
 
-    @GetMapping("/media") //URL do EndPoint que indica as médias das entidades avaliadas
-    public void mediaAvaliacao() throws AvaliacaoNaoEncontradaException {
-        try {
-            avaliacaoService.mediaAvaliacoes();
-        } catch(AvaliacaoNaoEncontradaException a) {
-            throw new AvaliacaoNaoEncontradaException("Avaliação não existe.");
-        }
-    }
 }

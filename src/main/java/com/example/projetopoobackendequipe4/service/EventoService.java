@@ -1,5 +1,7 @@
 package com.example.projetopoobackendequipe4.service;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacaoNaoEncontradaException;
+import com.example.projetopoobackendequipe4.exception.AvaliacoesEventoNaoEncontradasException;
 import com.example.projetopoobackendequipe4.exception.ProdutoNaoEncontradoException;
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.Avaliacao;
@@ -67,5 +69,22 @@ public class EventoService {
             throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + eventoId);
         }
         return avaliacaoService.listarAvaliacoesPorAvaliavel(eventoId, "Evento");
+    }
+
+    public double mediaAvaliacoesDeEvento(Long eventoId) throws AvaliacoesEventoNaoEncontradasException {
+       List<Avaliacao> avaliacoes = listarAvaliacoesDeEvento(eventoId);
+        if(avaliacoes.isEmpty()) {
+            throw new AvaliacoesEventoNaoEncontradasException("Ainda não há avaliações desse Evento.");
+        }
+
+        int totalNotas = 0;
+        int totalAvaliacoes = 0;
+
+        for(int i = 0; i < avaliacoes.size(); i++) {
+            totalNotas += avaliacoes.get(i).getNota();
+            totalAvaliacoes++;
+        }
+
+        return (double) totalNotas / totalAvaliacoes;
     }
 }

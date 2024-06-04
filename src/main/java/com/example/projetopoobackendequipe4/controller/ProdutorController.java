@@ -1,11 +1,13 @@
 package com.example.projetopoobackendequipe4.controller;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacoesEventoNaoEncontradasException;
 import com.example.projetopoobackendequipe4.exception.AvaliacoesProdutorNaoEncontradasException;
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +78,15 @@ public class ProdutorController {
             return ResponseEntity.ok(avaliacoes);
         } catch (ProdutorNaoEncontradoException | AvaliacoesProdutorNaoEncontradasException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/{eventoId}/media-avaliacoes-evento")
+    public ResponseEntity<Double> mediaAvaliacoesDeProdutor(@PathVariable Long produtorId) {
+        try {
+            double media = produtorService.mediaAvaliacoesDeProdutor(produtorId);
+            return new ResponseEntity<>(media, HttpStatus.OK);
+        } catch (AvaliacoesEventoNaoEncontradasException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

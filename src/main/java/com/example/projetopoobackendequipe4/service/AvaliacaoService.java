@@ -93,23 +93,6 @@ public class AvaliacaoService {
         }
     }
 
-    public double mediaAvaliacoes() throws AvaliacaoNaoEncontradaException {
-        List<Avaliacao> avaliacoes = listaAvaliacoes();
-        
-        if(avaliacoes.isEmpty()) {
-            throw new AvaliacaoNaoEncontradaException("Ainda não há avaliações.");
-        }
-        
-        int totalNotas = 0;
-        int totalAvaliacoes = 0;
-        
-        for(int i = 0; i < avaliacoes.size(); i++) {
-            totalNotas += avaliacoes.get(i).getNota();
-            totalAvaliacoes++;
-        }
-        
-        return totalNotas / totalAvaliacoes;
-    }
     public List<Avaliacao> listarAvaliacoesPorAvaliavel(Long avaliavelId, String tipoAvaliavel) {
         return avaliacaoRepository.findByAvaliavelIdAndTipoAvaliavel(avaliavelId, tipoAvaliavel);
     }

@@ -1,6 +1,8 @@
 // ProdutorService.java
 package com.example.projetopoobackendequipe4.service;
 
+import com.example.projetopoobackendequipe4.exception.AvaliacaoNaoEncontradaException;
+import com.example.projetopoobackendequipe4.exception.AvaliacoesProdutorNaoEncontradasException;
 import com.example.projetopoobackendequipe4.exception.ProdutorNaoEncontradoException;
 import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produtor;
@@ -75,5 +77,22 @@ public class ProdutorService {
             throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + produtorId);
         }
         return avaliacaoService.listarAvaliacoesPorAvaliavel(produtorId, "Produtor");
+    }
+    public double mediaAvaliacoesDeProdutor(Long produtorId) throws AvaliacoesProdutorNaoEncontradasException {
+        List<Avaliacao> avaliacoes = listarAvaliacoesDeProdutor(produtorId);
+
+        if(avaliacoes.isEmpty()) {
+            throw new AvaliacoesProdutorNaoEncontradasException("Ainda não há avaliações para esse Produto.");
+        }
+
+        int totalNotas = 0;
+        int totalAvaliacoes = 0;
+
+        for(int i = 0; i < avaliacoes.size(); i++) {
+            totalNotas += avaliacoes.get(i).getNota();
+            totalAvaliacoes++;
+        }
+
+        return (double) totalNotas / totalAvaliacoes;
     }
 }
