@@ -51,7 +51,7 @@ public class AvaliacaoService {
         }
 
         Avaliacao a = opAvaliacao.get();
-        a.setComentario(novaAvaliacao.getComentario());
+        a.setDescricao(novaAvaliacao.getDescricao());
         a.setNota(novaAvaliacao.getNota());
         return avaliacaoRepository.save(a);
     }

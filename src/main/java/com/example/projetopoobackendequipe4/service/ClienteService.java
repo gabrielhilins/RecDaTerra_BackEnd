@@ -71,7 +71,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Avaliacao avaliarAlgo(Cliente cliente, Long avaliavelId, Byte nota, String comentario, String tipo) throws AvaliacaoNaoEncontradaException {
+    public Avaliacao avaliarAlgo(Cliente cliente, Long avaliavelId, Byte nota, String descricao, String tipo) throws AvaliacaoNaoEncontradaException {
         if(avaliavelId == null) {
             throw new AvaliacaoNaoEncontradaException("Essa avaliação não existe.");
         }
@@ -81,7 +81,7 @@ public class ClienteService {
         Avaliacao a = new Avaliacao();
 
         a.setNota(nota);
-        a.setComentario(comentario);
+        a.setDescricao(descricao);
         a.setClienteAvaliador(cliente);
         a.setAvaliavelId(avaliavelId);
         a.setTipoAvaliavel(tipo);

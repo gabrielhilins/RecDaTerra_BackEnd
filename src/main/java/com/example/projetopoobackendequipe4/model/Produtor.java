@@ -52,6 +52,7 @@ public class Produtor extends Usuario implements Avaliavel {
     private byte[] fotoPerfil;
 
     @OneToMany(mappedBy = "produtor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Produto> produtos;
 
     @OneToMany(mappedBy = "produtorDestino", cascade = CascadeType.ALL)
