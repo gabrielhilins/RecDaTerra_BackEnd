@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.projetopoobackendequipe4.model.Avaliacao;
 import com.example.projetopoobackendequipe4.model.Produto;
 import com.example.projetopoobackendequipe4.repository.ProdutoRepository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -25,10 +25,12 @@ public class ProdutoService {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
+    @Transactional
     public void criarProduto(Produto p) {
         produtoRepository.save(p);
     }
-    
+
+    @Transactional
     public void deletarProduto(Long id) throws ProdutoNaoEncontradoException {
         Optional<Produto>opProduto = produtoRepository.findById(id);
 
@@ -39,7 +41,8 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-public Produto atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoException {
+    @Transactional
+    public Produto atualizarProduto(Long Id, Produto p) throws ProdutoNaoEncontradoException {
         Optional<Produto> opProduto = produtoRepository.findById(Id);
 
         if(opProduto.isEmpty()) {

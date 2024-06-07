@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
+@Table(name = "produtor")
 @DiscriminatorValue("PRODUTOR")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -48,10 +49,10 @@ public class Produtor extends Usuario implements Avaliavel {
     @Column(name = "cidade", length = 100)
     private String cidade;
 
-    @Column(name = "foto_perfil")
-    private byte[] fotoPerfil;
+    @Column(name = "fotoPerfil")
+    private String fotoPerfil;
 
-    @OneToMany(mappedBy = "produtor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "produtorCriador", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Produto> produtos;
 

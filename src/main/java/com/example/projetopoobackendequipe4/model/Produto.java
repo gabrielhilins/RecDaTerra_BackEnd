@@ -1,5 +1,6 @@
 package com.example.projetopoobackendequipe4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
+@Table(name = "produto")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -26,28 +28,29 @@ public class Produto implements Avaliavel {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "produtor", referencedColumnName = "produtor_id")
-    private Produtor produtor;
+    @JoinColumn(name = "produtor_criador", referencedColumnName = "produtor_id")
+    @JsonIgnore
+    private Produtor produtorCriador;
 
-    @Column(length = 20, nullable = false)
+    @Column(name = "nome_produto", length = 20, nullable = false)
     private String nomeProduto;
 
-    @Column(length = 100, nullable = true)
+    @Column(name = "descricao", length = 100, nullable = true)
     private String descricao;
 
-    @Column(length = 30, nullable = false)
+    @Column(name = "categoria",length = 30, nullable = false)
     private String categoria;
 
-    @Column(length = 10, nullable = true)
+    @Column(name = "estoque",length = 10, nullable = false)
     private int estoque;
 
-    @Column(nullable = false)
+    @Column(name = "disponibilidade",nullable = false)
     private boolean disponibilidade;
 
-    @Column(nullable = true)
-    private byte[] fotoProduto;
+    @Column(name = "foto_produto", nullable = false)
+    private String fotoProduto;
 
-    @Column(nullable = false)
+    @Column(name = "data_registro_produto", nullable = false)
     private LocalDateTime dataRegistroProduto;
 
     // @OneToMany(mappedBy = "produtoAvaliado", cascade = CascadeType.ALL)

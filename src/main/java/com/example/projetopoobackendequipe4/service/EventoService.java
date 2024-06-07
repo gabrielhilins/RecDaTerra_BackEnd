@@ -11,6 +11,7 @@ import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class EventoService {
     @Autowired
     AvaliacaoService avaliacaoService;
 
+    @Transactional
     public Evento criarEvento(Evento evento) {
         return eventoRepository.save(evento);
     }
@@ -45,6 +47,7 @@ public class EventoService {
         return(evento);
     }
 
+    @Transactional
     public Evento atualizarEvento(Long id, Evento detalhesDoEvento) {
         Evento evento = eventoRepository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
@@ -60,6 +63,7 @@ public class EventoService {
         return eventoRepository.save(evento);
     }
 
+    @Transactional
     public void deletarEvento(Long id) {
         eventoRepository.deleteById(id);
     }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.projetopoobackendequipe4.exception.NotificacaoNaoEncontrada;
 import com.example.projetopoobackendequipe4.model.Notificacao;
 import com.example.projetopoobackendequipe4.repository.NotificacaoRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class NotificacaoService {
@@ -17,6 +18,7 @@ public class NotificacaoService {
     private NotificacaoRepository notificacaoRepository;
 
     // Método para inserir uma nova notificação
+    @Transactional
     public void insertNotificacao(Notificacao notificacao) {
         notificacaoRepository.save(notificacao);
     }
@@ -33,6 +35,7 @@ public class NotificacaoService {
     }
 
     // Método para deletar Notificações por ID
+    @Transactional
     public void deletarPorId(Long id) {
         if (notificacaoRepository.existsById(id)) {
             notificacaoRepository.deleteById(id);
@@ -47,6 +50,7 @@ public class NotificacaoService {
         return opNotificacao.orElseThrow(() -> new NotificacaoNaoEncontrada("Notificacão não encontrada"));
     }
 
+    @Transactional
     public Notificacao atualizarNotificacao(Long id, Notificacao novaNotificacao) {
         return notificacaoRepository.findById(id).map(notificacao -> {
             notificacao.setConteudo(novaNotificacao.getConteudo());

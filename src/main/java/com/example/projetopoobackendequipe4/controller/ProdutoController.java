@@ -61,7 +61,7 @@ public class ProdutoController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/{id}/avaliacoes")
+    @GetMapping("/{produtoid}/avaliacoes")
     public ResponseEntity<List<Avaliacao>> listarAvaliacoesDeProduto(@PathVariable Long produtoId) {
         try {
             List<Avaliacao> avaliacoes = produtoService.listarAvaliacoesDeProduto(produtoId);
@@ -70,7 +70,7 @@ public class ProdutoController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/{eventoId}/media-avaliacoes-produto")
+    @GetMapping("/{produtoId}/media-avaliacoes-produto")
     public ResponseEntity<Double> mediaAvaliacoesDeProduto(@PathVariable Long produtoId) {
         try {
             double media = produtoService.mediaAvaliacoesDeProduto(produtoId);

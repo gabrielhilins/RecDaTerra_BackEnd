@@ -12,6 +12,7 @@ import com.example.projetopoobackendequipe4.repository.AvaliacaoRepository;
 import com.example.projetopoobackendequipe4.repository.EventoRepository;
 import com.example.projetopoobackendequipe4.repository.ProdutoRepository;
 import com.example.projetopoobackendequipe4.repository.ProdutorRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AvaliacaoService {
@@ -28,10 +29,12 @@ public class AvaliacaoService {
     @Autowired
     private EventoRepository eventoRepository;
 
+    @Transactional
     public Avaliacao criarAvaliacao(Avaliacao a) {
         return avaliacaoRepository.save(a);
     }
 
+    @Transactional
     public void deletarAvaliacaoPelaId(Long id) throws AvaliacaoNaoEncontradaException {
         Optional<Avaliacao> opAvaliacao = avaliacaoRepository.findById(id);
 
@@ -43,6 +46,7 @@ public class AvaliacaoService {
         avaliacaoRepository.delete(a);
     }
 
+    @Transactional
     public Avaliacao atualizarAvaliacao(Long id, Avaliacao novaAvaliacao) throws AvaliacaoNaoEncontradaException {
         Optional<Avaliacao> opAvaliacao = avaliacaoRepository.findById(id);
 

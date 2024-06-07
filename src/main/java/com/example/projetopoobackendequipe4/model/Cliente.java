@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
+@Table(name = "cliente")
 @DiscriminatorValue("CLIENTE")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class Cliente extends Usuario {
     private String bio;
 
     @Column(name = "fotoPerfil")
-    private byte[] fotoPerfil;
+    private String fotoPerfil;
 
     @OneToMany(mappedBy = "clienteAvaliador", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

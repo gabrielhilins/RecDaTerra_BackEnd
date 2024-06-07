@@ -6,6 +6,7 @@ import com.example.projetopoobackendequipe4.model.*;
 import com.example.projetopoobackendequipe4.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ClienteService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
+    @Transactional
     public Cliente criarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
@@ -41,6 +43,7 @@ public class ClienteService {
                 .orElseThrow(() -> new ClienteNaoEncontradoException("Cliente não encontrado com o email: " + email));
     }
 
+    @Transactional
     public Cliente atualizarCliente(Long id, Cliente novosDetalhesDoCliente) throws ClienteNaoEncontradoException {
 
         Optional<Cliente> optionalCliente = clienteRepository.findById(id);
@@ -56,6 +59,7 @@ public class ClienteService {
         return clienteRepository.save(cli);
     }
 
+    @Transactional
     public void deletarCliente(Long id) throws ClienteNaoEncontradoException {
         Optional<Cliente> optionalCliente = clienteRepository.findById(id);
 
@@ -71,6 +75,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
+    @Transactional
     public Avaliacao avaliarAlgo(Cliente cliente, Long avaliavelId, Byte nota, String descricao, String tipo) throws AvaliacaoNaoEncontradaException {
         if(avaliavelId == null) {
             throw new AvaliacaoNaoEncontradaException("Essa avaliação não existe.");

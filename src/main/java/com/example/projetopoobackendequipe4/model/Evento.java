@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "evento")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,22 +26,26 @@ public class Evento implements Avaliavel {
     @Column(name = "evento_id", nullable = false)
     private Long id;
 
-    @Column(length = 150, nullable = false)
+    @Column(name = "nomeEvento", length = 150, nullable = false)
     private String nomeEvento;
 
-    @Column(length = 500, nullable = false)
+    @Column(name = "informacoes",length = 500, nullable = false)
     private String informacoes;
 
-    @Column(length = 1000)
+    @Column(name = "descricao",length = 1000)
     private String descricao;
 
-    @Column(length = 500)
+    @Column(name = "saibaMaisEvento",length = 500)
     private String saibaMaisEvento;
 
-    @Column(length = 15)
+    @Column(name = "fotoEvento")
+    private String fotoEvento;
+
+    @Column(name = "contato",length = 15)
     private String contato;
     
     @ManyToMany
+    @JsonIgnore
     private List<Produtor> produtores;
     
     /*
@@ -50,7 +56,7 @@ public class Evento implements Avaliavel {
 
     // private List<String> comentarios = new ArrayList<>(); //Lista para armazenar os comentários que o Evento recebe de vários Clientes
     
-    @Column(length = 25)
+    @Column(name = "dataEvento",length = 25)
     private LocalDateTime dataEvento;
     
     //Referênciar/Pegar o "id" do Evento ao "id" de Avaliavel, e explicitar/criar o "tipo" da entidade avaliada

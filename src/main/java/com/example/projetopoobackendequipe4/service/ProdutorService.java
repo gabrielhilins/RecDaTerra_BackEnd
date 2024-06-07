@@ -9,6 +9,7 @@ import com.example.projetopoobackendequipe4.model.Produtor;
 import com.example.projetopoobackendequipe4.repository.ProdutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,10 +44,12 @@ public class ProdutorService {
        return produtorOptional.get();
     }
 
+    @Transactional
     public Produtor criarProdutor(Produtor produtor) {
         return produtorRepository.save(produtor);
     }
 
+    @Transactional
     public Produtor atualizarProdutor(Long id, Produtor novosDetalhesDoProdutor) throws ProdutorNaoEncontradoException {
         Optional<Produtor> produtorOptional = produtorRepository.findById(id);
 
@@ -65,6 +68,7 @@ public class ProdutorService {
         return produtorRepository.save(produtor);
     }
 
+    @Transactional
     public void excluirProdutor(Long id) throws ProdutorNaoEncontradoException {
         if (!produtorRepository.existsById(id)) {
             throw new ProdutorNaoEncontradoException("Produtor não encontrado com o ID: " + id);
