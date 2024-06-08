@@ -60,9 +60,13 @@ public class ProdutorService {
         Produtor produtor = produtorOptional.get();
         produtor.setNomeUsuario(novosDetalhesDoProdutor.getNomeUsuario());
         produtor.setBio(novosDetalhesDoProdutor.getBio());
-        produtor.setContato(produtor.getContato());
+        produtor.setContato(novosDetalhesDoProdutor.getContato());
         produtor.setDocumento(novosDetalhesDoProdutor.getDocumento());
         produtor.setCep(novosDetalhesDoProdutor.getCep());
+        produtor.setRua(novosDetalhesDoProdutor.getRua());
+        produtor.setNumero(novosDetalhesDoProdutor.getNumero());
+        produtor.setBairro(novosDetalhesDoProdutor.getBairro());
+        produtor.setCidade(novosDetalhesDoProdutor.getCidade());
         produtor.setFotoPerfil(novosDetalhesDoProdutor.getFotoPerfil());
 
         return produtorRepository.save(produtor);

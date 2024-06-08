@@ -25,7 +25,7 @@ public class Produtor extends Usuario implements Avaliavel {
     @Column(name = "tipoDeDocumento", length = 4, nullable = false)
     private String tipoDeDocumento;
 
-    @Column(name = "documento", length = 15, nullable = false)
+    @Column(name = "documento", length = 20, nullable = false)
     private String documento;
 
     @Column(name = "bio", length = 400)
