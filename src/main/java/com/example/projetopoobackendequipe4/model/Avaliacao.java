@@ -19,7 +19,7 @@ import lombok.ToString;
 public class Avaliacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "avaliacao_id", nullable = false)
+    @Column( nullable = false)
     private Long id;
 
     @Column(name = "nota",length = 2, nullable = false)
